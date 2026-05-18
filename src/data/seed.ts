@@ -340,8 +340,10 @@ export function buildSearchHistory(
   for (let i = 0; i < 40; i++) {
     const declaration = declarations[i % declarations.length];
     const user = users[i % users.length];
-    // Spread over the last 30 days deterministically.
-    const dayOffset = i % 30;
+    // Spread over the last 30 days deterministically. Day offset is at
+    // least 1 so the hour/minute offsets can never push searchedAt past
+    // the seed anchor ("now").
+    const dayOffset = Math.max(1, i % 30);
 
     records.push({
       id: crypto.randomUUID(),
