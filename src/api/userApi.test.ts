@@ -2,7 +2,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { resetStore, store } from '../data/store';
 import { listUsers, createUser, updateUser, deactivateUser } from './userApi';
-import type { User } from '../types';
 
 const admin = () => store.users.find((u) => u.role === 'ADMIN')!;
 const newUserInput = {
