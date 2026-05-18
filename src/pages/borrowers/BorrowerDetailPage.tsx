@@ -1,3 +1,262 @@
+// src/pages/borrowers/BorrowerDetailPage.tsx
+import { useEffect, useState, type ReactNode } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Badge } from '../../components/Badge';
+import { Button } from '../../components/Button';
+import { Alert } from '../../components/Alert';
+import { Spinner } from '../../components/Spinner';
+import { Toast } from '../../components/Toast';
+import { ConfirmDialog } from '../../components/ConfirmDialog';
+import { useAuth } from '../../context/AuthContext';
+import { store } from '../../data/store';
+import { getBorrower, deactivateBorrower } from '../../api/borrowerApi';
+import { formatDate, formatDateTime, formatCurrency } from '../../utils/formatters';
+import { BorrowerFormModal } from './BorrowerFormModal';
+import type { User, Borrower, BorrowerType } from '../../types';
+
+const borrowerTypeLabel: Record<BorrowerType, string> = {
+  JURISTIC: 'นิติบุคคล',
+  INDIVIDUAL: 'บุคคลธรรมดา',
+};
+
+type TabKey = 'info' | 'declarations';
+
+function Field({ label, value }: { label: string; value: ReactNode }) {
+  return (
+    <div className="flex flex-col gap-1">
+      <span className="text-xs font-medium text-gray-500">{label}</span>
+      <span className="text-sm text-gray-900">{value}</span>
+    </div>
+  );
+}
+
 export function BorrowerDetailPage() {
-  return <div>BorrowerDetailPage</div>;
+  const { id } = useParams<{ id: string }>();
+  const { user } = useAuth();
+  const actor: User | null =
+    user ?? store.users.find((u) => u.role === 'SUPER_ADMIN') ?? null;
+  const isSuperAdmin = actor?.role === 'SUPER_ADMIN';
+
+  const [borrower, setBorrower] = useState<Borrower | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [activeTab, setActiveTab] = useState<TabKey>('info');
+  const [formOpen, setFormOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [deactivating, setDeactivating] = useState(false);
+  const [toast, setToast] = useState('');
+
+  async function load() {
+    if (!id) return;
+    setLoading(true);
+    setError(null);
+    const result = await getBorrower(id);
+    if (result) {
+      setBorrower(result);
+      setNotFound(false);
+    } else {
+      setBorrower(null);
+      setNotFound(true);
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    void load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  function showToast(message: string) {
+    setToast(message);
+    window.setTimeout(() => setToast(''), 2500);
+  }
+
+  function handleSaved() {
+    setFormOpen(false);
+    showToast('บันทึกข้อมูลผู้กู้เรียบร้อย');
+    void load();
+  }
+
+  async function handleConfirmDeactivate() {
+    if (!borrower || !actor) return;
+    setDeactivating(true);
+    setError(null);
+    try {
+      await deactivateBorrower(actor, borrower.id);
+      setConfirmOpen(false);
+      showToast('ปิดใช้งานผู้กู้เรียบร้อย');
+      void load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'เกิดข้อผิดพลาด');
+      setConfirmOpen(false);
+    } finally {
+      setDeactivating(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner size={28} />
+      </div>
+    );
+  }
+
+  if (notFound || !borrower) {
+    return (
+      <div className="flex flex-col gap-4">
+        <Alert tone="error" variant="banner">
+          ไม่พบข้อมูลผู้กู้
+        </Alert>
+        <Link to="/borrowers" className="text-sm text-navy underline">
+          ← กลับไปหน้ารายการผู้กู้
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div>
+        <Link to="/borrowers" className="text-sm text-navy underline">
+          ← กลับไปหน้ารายการผู้กู้
+        </Link>
+      </div>
+
+      <header className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-xl font-semibold text-navy">{borrower.nameTh}</h1>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-500">{borrower.id}</span>
+            <Badge
+              text={borrowerTypeLabel[borrower.borrowerType]}
+              tone={borrower.borrowerType === 'JURISTIC' ? 'blue' : 'teal'}
+            />
+            <Badge
+              text={borrower.status === 'ACTIVE' ? 'ใช้งาน' : 'ปิดใช้งาน'}
+              tone={borrower.status === 'ACTIVE' ? 'green' : 'gray'}
+            />
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary" onClick={() => setFormOpen(true)}>
+            แก้ไข
+          </Button>
+          {isSuperAdmin && borrower.status === 'ACTIVE' && (
+            <Button variant="danger" onClick={() => setConfirmOpen(true)}>
+              ปิดใช้งาน
+            </Button>
+          )}
+        </div>
+      </header>
+
+      {error && (
+        <Alert tone="error" variant="banner">
+          {error}
+        </Alert>
+      )}
+
+      <div className="border-b border-gray-200">
+        <nav className="flex gap-1">
+          <button
+            type="button"
+            onClick={() => setActiveTab('info')}
+            className={`border-b-2 px-4 py-2 text-sm font-medium ${
+              activeTab === 'info'
+                ? 'border-navy text-navy'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            ข้อมูลผู้กู้
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('declarations')}
+            className={`border-b-2 px-4 py-2 text-sm font-medium ${
+              activeTab === 'declarations'
+                ? 'border-navy text-navy'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            ใบขนที่เชื่อมโยง
+          </button>
+        </nav>
+      </div>
+
+      {activeTab === 'info' ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <Field label="ชื่อบริษัท (TH)" value={borrower.nameTh} />
+            <Field label="ชื่อบริษัท (EN)" value={borrower.nameEn || '-'} />
+            <Field label="เลขนิติบุคคล" value={borrower.taxId} />
+            <Field
+              label="ประเภทผู้กู้"
+              value={borrowerTypeLabel[borrower.borrowerType]}
+            />
+            <Field label="ชื่อผู้ติดต่อหลัก" value={borrower.contactName} />
+            <Field label="เบอร์โทรศัพท์" value={borrower.phone} />
+            <Field label="อีเมล" value={borrower.email || '-'} />
+            <Field
+              label="วงเงินสินเชื่อ (บาท)"
+              value={formatCurrency(borrower.creditLimit)}
+            />
+            <Field
+              label="สถานะ"
+              value={
+                <Badge
+                  text={borrower.status === 'ACTIVE' ? 'ใช้งาน' : 'ปิดใช้งาน'}
+                  tone={borrower.status === 'ACTIVE' ? 'green' : 'gray'}
+                />
+              }
+            />
+            <Field
+              label="การยินยอมให้ข้อมูล"
+              value={
+                <Badge
+                  text={borrower.consentGiven ? 'ยินยอมแล้ว' : 'ยังไม่ยินยอม'}
+                  tone={borrower.consentGiven ? 'green' : 'amber'}
+                />
+              }
+            />
+            <Field
+              label="วันที่สร้าง"
+              value={formatDateTime(borrower.createdAt)}
+            />
+            <Field
+              label="แก้ไขล่าสุด"
+              value={formatDate(borrower.updatedAt)}
+            />
+          </div>
+        </section>
+      ) : (
+        <section className="rounded-lg border border-gray-200 bg-white p-5">
+          <div className="text-sm text-gray-500">ใบขนที่เชื่อมโยง</div>
+        </section>
+      )}
+
+      {actor && (
+        <BorrowerFormModal
+          open={formOpen}
+          actor={actor}
+          editBorrower={borrower}
+          onClose={() => setFormOpen(false)}
+          onSaved={handleSaved}
+        />
+      )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        title="ยืนยันการปิดใช้งาน"
+        message={`ต้องการปิดใช้งานผู้กู้ "${borrower.nameTh}" ใช่หรือไม่?`}
+        confirmLabel={deactivating ? 'กำลังดำเนินการ...' : 'ปิดใช้งาน'}
+        danger
+        onConfirm={() => void handleConfirmDeactivate()}
+        onCancel={() => setConfirmOpen(false)}
+      />
+
+      <Toast message={toast} visible={toast !== ''} />
+    </div>
+  );
 }
