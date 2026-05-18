@@ -43,6 +43,7 @@ export function BorrowersPage() {
   const actor: User | null =
     user ?? store.users.find((u) => u.role === 'SUPER_ADMIN') ?? null;
   const isSuperAdmin = actor?.role === 'SUPER_ADMIN';
+  const canWrite = actor?.role !== 'AUDITOR';
 
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<'' | BorrowerType>('');
@@ -128,9 +129,11 @@ export function BorrowersPage() {
             เพิ่ม แก้ไข และจัดการข้อมูลผู้กู้ในระบบ
           </p>
         </div>
-        <Button variant="primary" onClick={handleCreate}>
-          เพิ่มผู้กู้
-        </Button>
+        {canWrite && (
+          <Button variant="primary" onClick={handleCreate}>
+            เพิ่มผู้กู้
+          </Button>
+        )}
       </header>
 
       {error && (
@@ -244,14 +247,16 @@ export function BorrowersPage() {
                       >
                         ดู
                       </Link>
-                      <Button
-                        variant="secondary"
-                        onClick={() => handleEdit(row)}
-                        aria-label={`แก้ไข ${row.nameTh}`}
-                        className="px-2 py-1"
-                      >
-                        แก้ไข
-                      </Button>
+                      {canWrite && (
+                        <Button
+                          variant="secondary"
+                          onClick={() => handleEdit(row)}
+                          aria-label={`แก้ไข ${row.nameTh}`}
+                          className="px-2 py-1"
+                        >
+                          แก้ไข
+                        </Button>
+                      )}
                       {isSuperAdmin && row.status === 'ACTIVE' && (
                         <Button
                           variant="danger"

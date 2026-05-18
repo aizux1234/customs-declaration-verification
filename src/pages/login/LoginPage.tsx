@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { MAX_ATTEMPTS } from '../../api/authApi';
 import { landingRoute } from '../../utils/permissions';
 import { TextInput } from '../../components/TextInput';
 import { PasswordInput } from '../../components/PasswordInput';
@@ -36,7 +37,7 @@ export function LoginPage() {
         setError('บัญชีถูกล็อก กรุณาติดต่อผู้ดูแลระบบ');
       } else if (result.reason === 'INACTIVE') {
         setError('บัญชีนี้ถูกปิดใช้งาน');
-      } else if (result.reason === 'INVALID' && result.attemptsLeft < 5) {
+      } else if (result.reason === 'INVALID' && result.attemptsLeft < MAX_ATTEMPTS) {
         setError(
           `ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง เหลือ ${result.attemptsLeft} ครั้ง ก่อนบัญชีจะถูกล็อก`,
         );

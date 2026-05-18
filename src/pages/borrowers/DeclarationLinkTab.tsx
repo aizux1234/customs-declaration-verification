@@ -27,6 +27,7 @@ export function DeclarationLinkTab({ borrowerId }: DeclarationLinkTabProps) {
   const actor: User | null =
     user ?? store.users.find((u) => u.role === 'SUPER_ADMIN') ?? null;
   const isSuperAdmin = actor?.role === 'SUPER_ADMIN';
+  const canWrite = actor?.role !== 'AUDITOR';
 
   const [links, setLinks] = useState<DeclarationLink[]>([]);
   const [loading, setLoading] = useState(true);
@@ -125,9 +126,11 @@ export function DeclarationLinkTab({ borrowerId }: DeclarationLinkTabProps) {
     <section className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-5">
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-sm font-semibold text-navy">ใบขนที่เชื่อมโยง</h2>
-        <Button variant="primary" onClick={() => setLinkModalOpen(true)}>
-          เชื่อมโยงใบขน
-        </Button>
+        {canWrite && (
+          <Button variant="primary" onClick={() => setLinkModalOpen(true)}>
+            เชื่อมโยงใบขน
+          </Button>
+        )}
       </div>
 
       {error && (

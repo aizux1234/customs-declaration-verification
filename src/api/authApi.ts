@@ -8,7 +8,7 @@ export type LoginResult =
   | { ok: true; user: User }
   | { ok: false; reason: 'INVALID' | 'LOCKED' | 'INACTIVE'; attemptsLeft: number };
 
-const MAX_ATTEMPTS = 5;
+export const MAX_ATTEMPTS = 5;
 
 export function login(username: string, password: string): Promise<LoginResult> {
   const user = store.users.find((u) => u.username === username);

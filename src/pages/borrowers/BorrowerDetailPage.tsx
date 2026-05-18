@@ -37,6 +37,7 @@ export function BorrowerDetailPage() {
   const actor: User | null =
     user ?? store.users.find((u) => u.role === 'SUPER_ADMIN') ?? null;
   const isSuperAdmin = actor?.role === 'SUPER_ADMIN';
+  const canWrite = actor?.role !== 'AUDITOR';
 
   const [borrower, setBorrower] = useState<Borrower | null>(null);
   const [loading, setLoading] = useState(true);
@@ -142,9 +143,11 @@ export function BorrowerDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="secondary" onClick={() => setFormOpen(true)}>
-            แก้ไข
-          </Button>
+          {canWrite && (
+            <Button variant="secondary" onClick={() => setFormOpen(true)}>
+              แก้ไข
+            </Button>
+          )}
           {isSuperAdmin && borrower.status === 'ACTIVE' && (
             <Button variant="danger" onClick={() => setConfirmOpen(true)}>
               ปิดใช้งาน

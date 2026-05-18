@@ -47,11 +47,12 @@ export function VerifyPage() {
 
     setDeclaration(result.declaration);
 
+    const exists = await hasHistory(result.declaration.declarationNo);
+    setHistoryExists(exists);
+
     if (actor) {
       await recordSearch(actor, result.declaration, referenceNumber);
     }
-    const exists = await hasHistory(result.declaration.declarationNo);
-    setHistoryExists(exists);
     setLoading(false);
   }
 
