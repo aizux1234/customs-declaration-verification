@@ -1,7 +1,9 @@
 // src/pages/reports/SearchHistoryPage.tsx
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Download } from 'lucide-react';
 import { DataTable } from '../../components/DataTable';
+import { PageHeader } from '../../components/PageHeader';
 import { Pagination } from '../../components/Pagination';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
@@ -127,23 +129,18 @@ export function SearchHistoryPage() {
   const pageRows = rows.slice((page - 1) * pageSize, page * pageSize);
 
   return (
-    <div className="flex flex-col gap-6">
-      <header className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-xl font-semibold text-navy">
-            รายงานประวัติการค้นหา
-          </h1>
-          <p className="mt-1 text-sm text-gray-600">
-            ประวัติการค้นหาและตรวจสอบใบขนสินค้าของผู้ใช้งานในระบบ
-          </p>
-        </div>
-        <Badge text={`ทั้งหมด ${total} รายการ`} tone="navy" />
-      </header>
+    <div>
+      <PageHeader
+        title="รายงานประวัติการค้นหา"
+        description="ประวัติการค้นหาและตรวจสอบใบขนสินค้าของผู้ใช้งานในระบบ"
+        actions={<Badge text={`ทั้งหมด ${total} รายการ`} tone="navy" />}
+      />
 
-      <section className="rounded-lg border border-gray-200 bg-white p-4">
+      <div className="flex flex-col gap-6">
+      <section className="rounded-lg bg-white p-4 shadow-card">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-navy-700">
               ช่วงวันที่ค้นหา
             </span>
             <DateRangePicker
@@ -184,14 +181,15 @@ export function SearchHistoryPage() {
             variant="secondary"
             onClick={handleExport}
             disabled={loading || total === 0}
-            className="ml-auto"
+            className="ml-auto inline-flex items-center gap-1.5"
           >
+            <Download size={16} />
             Export Excel
           </Button>
         </div>
       </section>
 
-      <section className="rounded-lg border border-gray-200 bg-white">
+      <section className="rounded-lg bg-white shadow-card">
         {loading ? (
           <div className="flex justify-center py-12">
             <Spinner size={28} />
@@ -291,6 +289,7 @@ export function SearchHistoryPage() {
           </>
         )}
       </section>
+      </div>
 
       <Toast message="ส่งออกรายงานเป็นไฟล์ Excel เรียบร้อย" visible={toast} />
     </div>

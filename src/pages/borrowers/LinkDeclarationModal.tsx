@@ -84,7 +84,7 @@ export function LinkDeclarationModal({
         </>
       }
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         {apiError && (
           <Alert tone="error" variant="inline">
             {apiError}
@@ -100,35 +100,35 @@ export function LinkDeclarationModal({
           placeholder="เช่น A012-2024-12345678"
         />
 
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-gray-700">
+        <div className="flex flex-col gap-1.5">
+          <label className="text-sm font-medium text-navy-700">
             เอกสารประกอบ
           </label>
           <input
             ref={fileInputRef}
             type="file"
             onChange={handleFileChange}
-            className="text-sm text-gray-700 file:mr-3 file:rounded-md file:border file:border-gray-300 file:bg-white file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-navy hover:file:bg-gray-50"
+            className="text-sm text-navy-700 file:mr-3 file:rounded-md file:border file:border-navy-200 file:bg-white file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-navy-700 hover:file:bg-navy-50"
           />
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-navy-400">
             หากไม่เลือกไฟล์ ระบบจะใช้ชื่อเอกสารเริ่มต้น
           </span>
         </div>
 
-        <div className="rounded-md border border-gray-200 bg-gray-50 p-3">
-          <div className="text-xs font-medium text-gray-500">
+        <div className="rounded-md border border-navy-100 bg-navy-50 p-3">
+          <div className="text-xs font-medium text-navy-500">
             ตัวอย่างการเชื่อมโยง
           </div>
-          <dl className="mt-2 grid grid-cols-1 gap-1 text-sm sm:grid-cols-2">
-            <div className="flex justify-between gap-2 sm:flex-col sm:justify-start">
-              <dt className="text-gray-500">เลขที่ใบขน</dt>
-              <dd className="text-gray-900">
+          <dl className="mt-2 grid grid-cols-2 gap-4 text-sm">
+            <div className="flex flex-col gap-1">
+              <dt className="text-xs text-navy-500">เลขที่ใบขน</dt>
+              <dd className="text-sm text-navy-800">
                 {declarationNo.trim() || '-'}
               </dd>
             </div>
-            <div className="flex justify-between gap-2 sm:flex-col sm:justify-start">
-              <dt className="text-gray-500">เอกสาร</dt>
-              <dd className="text-gray-900">{previewDocumentName}</dd>
+            <div className="flex flex-col gap-1">
+              <dt className="text-xs text-navy-500">เอกสาร</dt>
+              <dd className="text-sm text-navy-800">{previewDocumentName}</dd>
             </div>
           </dl>
         </div>

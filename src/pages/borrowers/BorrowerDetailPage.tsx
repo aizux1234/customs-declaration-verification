@@ -25,8 +25,8 @@ type TabKey = 'info' | 'declarations';
 function Field({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="flex flex-col gap-1">
-      <span className="text-xs font-medium text-gray-500">{label}</span>
-      <span className="text-sm text-gray-900">{value}</span>
+      <span className="text-xs text-navy-500">{label}</span>
+      <span className="text-sm text-navy-800">{value}</span>
     </div>
   );
 }
@@ -122,39 +122,47 @@ export function BorrowerDetailPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <Link to="/borrowers" className="text-sm text-navy underline">
+        <Link to="/borrowers" className="text-sm text-navy-600 underline">
           ← กลับไปหน้ารายการผู้กู้
         </Link>
       </div>
 
-      <header className="flex items-start justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-semibold text-navy">{borrower.nameTh}</h1>
+      <section className="rounded-lg bg-white p-5 shadow-card">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-xl font-semibold text-navy-800">
+              {borrower.nameTh}
+            </h1>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-navy-500">{borrower.id}</span>
+              <Badge
+                text={borrowerTypeLabel[borrower.borrowerType]}
+                tone={borrower.borrowerType === 'JURISTIC' ? 'blue' : 'teal'}
+              />
+              <Badge
+                text={borrower.status === 'ACTIVE' ? 'ใช้งาน' : 'ปิดใช้งาน'}
+                tone={borrower.status === 'ACTIVE' ? 'green' : 'gray'}
+              />
+              <Badge
+                text={borrower.consentGiven ? 'ยินยอมแล้ว' : 'ยังไม่ยินยอม'}
+                tone={borrower.consentGiven ? 'green' : 'amber'}
+              />
+            </div>
+          </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500">{borrower.id}</span>
-            <Badge
-              text={borrowerTypeLabel[borrower.borrowerType]}
-              tone={borrower.borrowerType === 'JURISTIC' ? 'blue' : 'teal'}
-            />
-            <Badge
-              text={borrower.status === 'ACTIVE' ? 'ใช้งาน' : 'ปิดใช้งาน'}
-              tone={borrower.status === 'ACTIVE' ? 'green' : 'gray'}
-            />
+            {canWrite && (
+              <Button variant="secondary" onClick={() => setFormOpen(true)}>
+                แก้ไข
+              </Button>
+            )}
+            {isSuperAdmin && borrower.status === 'ACTIVE' && (
+              <Button variant="danger" onClick={() => setConfirmOpen(true)}>
+                ปิดใช้งาน
+              </Button>
+            )}
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          {canWrite && (
-            <Button variant="secondary" onClick={() => setFormOpen(true)}>
-              แก้ไข
-            </Button>
-          )}
-          {isSuperAdmin && borrower.status === 'ACTIVE' && (
-            <Button variant="danger" onClick={() => setConfirmOpen(true)}>
-              ปิดใช้งาน
-            </Button>
-          )}
-        </div>
-      </header>
+      </section>
 
       {error && (
         <Alert tone="error" variant="banner">
@@ -162,15 +170,15 @@ export function BorrowerDetailPage() {
         </Alert>
       )}
 
-      <div className="border-b border-gray-200">
+      <div className="border-b border-navy-100">
         <nav className="flex gap-1">
           <button
             type="button"
             onClick={() => setActiveTab('info')}
-            className={`border-b-2 px-4 py-2 text-sm font-medium ${
+            className={`border-b-2 px-4 py-2 text-sm font-medium transition-colors ${
               activeTab === 'info'
-                ? 'border-navy text-navy'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                ? 'border-navy-600 text-navy-800'
+                : 'border-transparent text-navy-400 hover:text-navy-600'
             }`}
           >
             ข้อมูลผู้กู้
@@ -178,10 +186,10 @@ export function BorrowerDetailPage() {
           <button
             type="button"
             onClick={() => setActiveTab('declarations')}
-            className={`border-b-2 px-4 py-2 text-sm font-medium ${
+            className={`border-b-2 px-4 py-2 text-sm font-medium transition-colors ${
               activeTab === 'declarations'
-                ? 'border-navy text-navy'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                ? 'border-navy-600 text-navy-800'
+                : 'border-transparent text-navy-400 hover:text-navy-600'
             }`}
           >
             ใบขนที่เชื่อมโยง
@@ -190,7 +198,7 @@ export function BorrowerDetailPage() {
       </div>
 
       {activeTab === 'info' ? (
-        <section className="rounded-lg border border-gray-200 bg-white p-5">
+        <section className="rounded-lg bg-white p-5 shadow-card">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <Field label="ชื่อบริษัท (TH)" value={borrower.nameTh} />
             <Field label="ชื่อบริษัท (EN)" value={borrower.nameEn || '-'} />

@@ -123,9 +123,11 @@ export function DeclarationLinkTab({ borrowerId }: DeclarationLinkTabProps) {
   ];
 
   return (
-    <section className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-5">
+    <section className="flex flex-col gap-4 rounded-lg bg-white p-5 shadow-card">
       <div className="flex items-center justify-between gap-4">
-        <h2 className="text-sm font-semibold text-navy">ใบขนที่เชื่อมโยง</h2>
+        <h2 className="text-sm font-semibold text-navy-800">
+          ใบขนที่เชื่อมโยง
+        </h2>
         {canWrite && (
           <Button variant="primary" onClick={() => setLinkModalOpen(true)}>
             เชื่อมโยงใบขน

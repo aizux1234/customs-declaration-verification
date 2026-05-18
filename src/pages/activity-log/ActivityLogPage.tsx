@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import { DataTable } from '../../components/DataTable';
+import { PageHeader } from '../../components/PageHeader';
 import { DateRangePicker } from '../../components/DateRangePicker';
 import { Dropdown } from '../../components/Dropdown';
 import { EmptyState } from '../../components/EmptyState';
@@ -158,22 +159,21 @@ export function ActivityLogPage() {
   );
 
   return (
-    <div className="flex flex-col gap-6">
-      <header className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-xl font-semibold text-navy">บันทึกกิจกรรมระบบ</h1>
-          <p className="mt-1 text-sm text-gray-600">
-            ประวัติการใช้งานระบบของผู้ใช้งานทั้งหมด (ดูได้อย่างเดียว)
-          </p>
-        </div>
-        <Badge text={`ทั้งหมด ${total} รายการ`} tone="navy" />
-      </header>
+    <div>
+      <PageHeader
+        title="บันทึกกิจกรรม"
+        description="ประวัติการใช้งานระบบของผู้ใช้งานทั้งหมด (ดูได้อย่างเดียว)"
+        actions={<Badge text={`ทั้งหมด ${total} รายการ`} tone="navy" />}
+      />
 
-      <section className="rounded-lg border border-gray-200 bg-white p-4">
-        <h2 className="mb-3 text-sm font-semibold text-navy">ตัวกรองข้อมูล</h2>
+      <div className="flex flex-col gap-6">
+      <section className="rounded-lg bg-white p-4 shadow-card">
+        <h2 className="mb-3 text-sm font-semibold text-navy-800">
+          ตัวกรองข้อมูล
+        </h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-navy-700">
               ช่วงวันที่
             </span>
             <DateRangePicker
@@ -199,20 +199,20 @@ export function ActivityLogPage() {
         </div>
 
         <fieldset className="mt-4">
-          <legend className="mb-2 text-sm font-medium text-gray-700">
+          <legend className="mb-2 text-sm font-medium text-navy-700">
             ประเภทการกระทำ
           </legend>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             {ACTION_TYPE_OPTIONS.map((action) => (
               <label
                 key={action}
-                className="flex items-center gap-1.5 text-xs text-gray-700"
+                className="flex items-center gap-1.5 text-xs text-navy-700"
               >
                 <input
                   type="checkbox"
                   checked={draft.actionTypes.includes(action)}
                   onChange={() => toggleActionType(action)}
-                  className="h-4 w-4 rounded border-gray-300 text-navy focus:ring-brand"
+                  className="h-4 w-4 rounded border-navy-300 text-navy-600 focus:ring-brand"
                 />
                 {action}
               </label>
@@ -230,7 +230,7 @@ export function ActivityLogPage() {
         </div>
       </section>
 
-      <section className="rounded-lg border border-gray-200 bg-white">
+      <section className="rounded-lg bg-white shadow-card">
         {loading ? (
           <div className="flex justify-center py-12">
             <Spinner size={28} />
@@ -342,6 +342,7 @@ export function ActivityLogPage() {
           </>
         )}
       </section>
+      </div>
     </div>
   );
 }

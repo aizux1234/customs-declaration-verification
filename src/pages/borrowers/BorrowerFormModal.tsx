@@ -175,13 +175,13 @@ export function BorrowerFormModal({
         </>
       }
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         {apiError && (
           <Alert tone="error" variant="inline">
             {apiError}
           </Alert>
         )}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <TextInput
             label="ชื่อบริษัท (TH)"
             value={form.nameTh}
@@ -216,7 +216,7 @@ export function BorrowerFormModal({
           options={BORROWER_TYPE_OPTIONS}
           required
         />
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <TextInput
             label="ชื่อผู้ติดต่อหลัก"
             value={form.contactName}
@@ -232,7 +232,7 @@ export function BorrowerFormModal({
             required
           />
         </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <TextInput
             label="อีเมล"
             value={form.email}
@@ -248,8 +248,8 @@ export function BorrowerFormModal({
             placeholder="0.00"
           />
         </div>
-        <div className="flex flex-col gap-1">
-          <span className="text-sm font-medium text-gray-700">
+        <div className="flex flex-col gap-1.5">
+          <span className="text-sm font-medium text-navy-700">
             การยินยอมให้ข้อมูล
           </span>
           <Toggle
