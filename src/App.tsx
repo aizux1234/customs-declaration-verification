@@ -1,11 +1,14 @@
-function App() {
+// src/App.tsx
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { AppRoutes } from './routes/AppRoutes';
+
+export default function App() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-navy text-white">
-      <h1 className="text-2xl font-semibold">
-        Customs Declaration Verification System
-      </h1>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
-
-export default App;
