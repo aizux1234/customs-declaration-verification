@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import { AlertCircle, AlertTriangle, Info, CheckCircle2 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 type AlertTone = 'error' | 'warning' | 'info' | 'success';
 
@@ -10,28 +12,40 @@ type AlertProps = {
 };
 
 const toneClasses: Record<AlertTone, string> = {
-  error: 'bg-red-50 text-red-800 border-red-200',
-  warning: 'bg-amber-50 text-amber-800 border-amber-200',
-  info: 'bg-blue-50 text-blue-800 border-blue-200',
-  success: 'bg-green-50 text-green-800 border-green-200',
+  error: 'bg-danger-soft text-danger-text border-danger',
+  warning: 'bg-warning-soft text-warning-text border-warning',
+  info: 'bg-info-soft text-info-text border-info',
+  success: 'bg-success-soft text-success-text border-success',
+};
+
+const toneIcon: Record<AlertTone, LucideIcon> = {
+  error: AlertCircle,
+  warning: AlertTriangle,
+  info: Info,
+  success: CheckCircle2,
 };
 
 export function Alert({ tone, children, variant, onRetry }: AlertProps) {
   const sizing =
     variant === 'banner'
       ? 'w-full px-4 py-3 text-sm'
-      : 'px-3 py-1.5 text-xs';
+      : 'px-3 py-2 text-xs';
+  const Icon = toneIcon[tone];
+  const iconSize = variant === 'banner' ? 18 : 14;
   return (
     <div
       role="alert"
-      className={`flex items-center justify-between gap-3 rounded-md border ${toneClasses[tone]} ${sizing}`}
+      className={`flex items-center justify-between gap-3 rounded-md border-l-4 ${toneClasses[tone]} ${sizing}`}
     >
-      <span>{children}</span>
+      <span className="flex items-center gap-2">
+        <Icon size={iconSize} className="shrink-0" />
+        <span>{children}</span>
+      </span>
       {onRetry && (
         <button
           type="button"
           onClick={onRetry}
-          className="shrink-0 rounded border border-current px-2 py-0.5 text-xs font-medium hover:bg-black/5"
+          className="shrink-0 rounded border border-current px-2 py-0.5 text-xs font-medium transition-colors hover:bg-black/5"
         >
           ลองใหม่
         </button>

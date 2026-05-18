@@ -24,11 +24,11 @@ export function DataTable<T>({
   return (
     <table className="w-full border-collapse text-sm">
       <thead>
-        <tr className="bg-navy text-left text-white">
+        <tr className="bg-navy-50 text-left text-xs font-semibold uppercase tracking-wide text-navy-600">
           {columns.map((col) => (
             <th
               key={col.key}
-              className={`px-3 py-2 font-medium ${col.className ?? ''}`}
+              className={`px-4 py-3 ${col.className ?? ''}`}
             >
               {col.header}
             </th>
@@ -40,12 +40,12 @@ export function DataTable<T>({
           <tr
             key={rowKey(row)}
             onClick={onRowClick ? () => onRowClick(row) : undefined}
-            className={`border-b border-gray-200 hover:bg-gray-50 ${
+            className={`border-t border-navy-100 transition-colors hover:bg-navy-50/60 ${
               onRowClick ? 'cursor-pointer' : ''
             }`}
           >
             {columns.map((col) => (
-              <td key={col.key} className={`px-3 py-2 ${col.className ?? ''}`}>
+              <td key={col.key} className={`px-4 py-3 text-navy-700 ${col.className ?? ''}`}>
                 {col.render
                   ? col.render(row)
                   : ((row as Record<string, unknown>)[col.key] as ReactNode)}
