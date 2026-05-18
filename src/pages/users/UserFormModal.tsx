@@ -175,7 +175,7 @@ export function UserFormModal({
         </>
       }
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         {apiError && (
           <Alert tone="error" variant="inline">
             {apiError}
@@ -190,7 +190,7 @@ export function UserFormModal({
           readOnly={isEdit}
           placeholder="ชื่อผู้ใช้สำหรับเข้าระบบ"
         />
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <TextInput
             label="ชื่อ"
             value={form.firstName}
@@ -213,7 +213,7 @@ export function UserFormModal({
           error={errors.email}
           required
         />
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <TextInput
             label="เบอร์โทรศัพท์"
             value={form.phone}
@@ -237,7 +237,7 @@ export function UserFormModal({
           required
         />
         {!isEdit && (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-4">
             <PasswordInput
               label="รหัสผ่าน"
               value={form.password}
@@ -255,8 +255,8 @@ export function UserFormModal({
           </div>
         )}
         {isEdit && (
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium text-gray-700">สถานะ</span>
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sm font-medium text-navy-700">สถานะ</span>
             <Toggle
               checked={form.status === 'ACTIVE'}
               onChange={(b) => set('status', b ? 'ACTIVE' : 'INACTIVE')}

@@ -1,6 +1,7 @@
 // src/pages/users/UsersPage.tsx
 import { useEffect, useState } from 'react';
 import { DataTable } from '../../components/DataTable';
+import { PageHeader } from '../../components/PageHeader';
 import { Pagination } from '../../components/Pagination';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
@@ -124,56 +125,59 @@ export function UsersPage() {
   const pageRows = rows.slice((page - 1) * pageSize, page * pageSize);
 
   return (
-    <div className="flex flex-col gap-6">
-      <header className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-xl font-semibold text-navy">จัดการผู้ใช้งาน</h1>
-          <p className="mt-1 text-sm text-gray-600">
-            เพิ่ม แก้ไข และจัดการบัญชีผู้ใช้งานในระบบ
-          </p>
-        </div>
-        <Button variant="primary" onClick={handleCreate}>
-          เพิ่มผู้ใช้
-        </Button>
-      </header>
+    <div>
+      <PageHeader
+        title="จัดการผู้ใช้งาน"
+        description="เพิ่ม แก้ไข และจัดการบัญชีผู้ใช้งานในระบบ"
+        actions={
+          <Button variant="primary" onClick={handleCreate}>
+            เพิ่มผู้ใช้
+          </Button>
+        }
+      />
 
-      {error && (
-        <Alert tone="error" variant="banner">
-          {error}
-        </Alert>
-      )}
+      <div className="flex flex-col gap-6">
+        {error && (
+          <Alert tone="error" variant="banner">
+            {error}
+          </Alert>
+        )}
 
-      <section className="rounded-lg border border-gray-200 bg-white p-4">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-2">
-            <TextInput
-              label="ค้นหา"
-              value={query}
-              onChange={setQuery}
-              placeholder="ชื่อ หรือ username"
+        <section className="rounded-lg bg-white p-4 shadow-card">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="lg:col-span-2">
+              <TextInput
+                label="ค้นหา"
+                value={query}
+                onChange={setQuery}
+                placeholder="ชื่อ หรือ username"
+              />
+            </div>
+            <Dropdown
+              label="บทบาท"
+              value={roleFilter}
+              onChange={(v) => setRoleFilter(v as '' | Role)}
+              options={ROLE_FILTER_OPTIONS}
+            />
+            <Dropdown
+              label="สถานะ"
+              value={statusFilter}
+              onChange={(v) => setStatusFilter(v as '' | EntityStatus)}
+              options={STATUS_FILTER_OPTIONS}
             />
           </div>
-          <Dropdown
-            label="บทบาท"
-            value={roleFilter}
-            onChange={(v) => setRoleFilter(v as '' | Role)}
-            options={ROLE_FILTER_OPTIONS}
-          />
-          <Dropdown
-            label="สถานะ"
-            value={statusFilter}
-            onChange={(v) => setStatusFilter(v as '' | EntityStatus)}
-            options={STATUS_FILTER_OPTIONS}
-          />
-        </div>
-        <div className="mt-4">
-          <Button variant="primary" onClick={() => void load()} loading={loading}>
-            ค้นหา
-          </Button>
-        </div>
-      </section>
+          <div className="mt-4">
+            <Button
+              variant="primary"
+              onClick={() => void load()}
+              loading={loading}
+            >
+              ค้นหา
+            </Button>
+          </div>
+        </section>
 
-      <section className="rounded-lg border border-gray-200 bg-white">
+      <section className="rounded-lg bg-white shadow-card">
         {loading ? (
           <div className="flex justify-center py-12">
             <Spinner size={28} />
@@ -284,7 +288,8 @@ export function UsersPage() {
             </div>
           </>
         )}
-      </section>
+        </section>
+      </div>
 
       {actor && (
         <UserFormModal
