@@ -43,7 +43,7 @@ export function PasswordInput({
         <button
           type="button"
           onClick={() => setShow((s) => !s)}
-          aria-label={show ? 'hide password' : 'show password'}
+          aria-label={show ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
           className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
         >
           {show ? '🙈' : '👁'}
