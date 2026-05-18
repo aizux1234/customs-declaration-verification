@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SearchForm } from './SearchForm';
 import { SummaryCard } from './SummaryCard';
+import { TransactionTable } from './TransactionTable';
+import { DocumentPreview } from './DocumentPreview';
 import { Alert } from '../../components/Alert';
 import { useAuth } from '../../context/AuthContext';
 import { store } from '../../data/store';
@@ -23,9 +25,8 @@ export function VerifyPage() {
   const [historyExists, setHistoryExists] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
 
-  function resolveActor(): User | null {
-    return user ?? store.users.find((u) => u.role === 'CREDIT_OFFICER') ?? null;
-  }
+  const actor: User | null =
+    user ?? store.users.find((u) => u.role === 'CREDIT_OFFICER') ?? null;
 
   async function runSearch(referenceNumber: string, declarationNo: string) {
     setLoading(true);
@@ -46,7 +47,6 @@ export function VerifyPage() {
 
     setDeclaration(result.declaration);
 
-    const actor = resolveActor();
     if (actor) {
       await recordSearch(actor, result.declaration, referenceNumber);
     }
@@ -102,10 +102,14 @@ export function VerifyPage() {
             referenceNumber={referenceUsed}
             onPreview={() => setPreviewOpen((v) => !v)}
           />
-          {previewOpen && (
-            <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-6 text-center text-sm text-gray-500">
-              ตัวอย่างเอกสารจะแสดงที่นี่
-            </div>
+          <TransactionTable declaration={declaration} />
+          {actor && (
+            <DocumentPreview
+              open={previewOpen}
+              declaration={declaration}
+              actor={actor}
+              onClose={() => setPreviewOpen(false)}
+            />
           )}
         </>
       )}
