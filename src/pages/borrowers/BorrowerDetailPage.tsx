@@ -1,6 +1,7 @@
 // src/pages/borrowers/BorrowerDetailPage.tsx
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
@@ -112,8 +113,12 @@ export function BorrowerDetailPage() {
         <Alert tone="error" variant="banner">
           ไม่พบข้อมูลผู้กู้
         </Alert>
-        <Link to="/borrowers" className="text-sm text-navy underline">
-          ← กลับไปหน้ารายการผู้กู้
+        <Link
+          to="/borrowers"
+          className="inline-flex items-center gap-1 text-sm text-navy-600 underline"
+        >
+          <ArrowLeft aria-hidden="true" size={16} />
+          กลับไปหน้ารายการผู้กู้
         </Link>
       </div>
     );
@@ -122,8 +127,12 @@ export function BorrowerDetailPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <Link to="/borrowers" className="text-sm text-navy-600 underline">
-          ← กลับไปหน้ารายการผู้กู้
+        <Link
+          to="/borrowers"
+          className="inline-flex items-center gap-1 text-sm text-navy-600 underline"
+        >
+          <ArrowLeft aria-hidden="true" size={16} />
+          กลับไปหน้ารายการผู้กู้
         </Link>
       </div>
 

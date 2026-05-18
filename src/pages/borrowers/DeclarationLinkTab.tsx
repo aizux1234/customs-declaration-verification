@@ -88,7 +88,7 @@ export function DeclarationLinkTab({ borrowerId }: DeclarationLinkTabProps) {
       key: 'declarationNo',
       header: 'เลขที่ใบขน',
       render: (row: DeclarationLink) => (
-        <Link to="/verify" className="font-medium text-navy underline">
+        <Link to="/verify" className="font-medium text-navy-700 underline">
           {row.declarationNo}
         </Link>
       ),
@@ -117,7 +117,7 @@ export function DeclarationLinkTab({ borrowerId }: DeclarationLinkTabProps) {
             ยกเลิกการเชื่อมโยง
           </Button>
         ) : (
-          <span className="text-gray-400">-</span>
+          <span className="text-navy-400">-</span>
         ),
     },
   ];

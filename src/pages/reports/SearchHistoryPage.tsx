@@ -205,7 +205,7 @@ export function SearchHistoryPage() {
                 {
                   key: 'no',
                   header: '#',
-                  className: 'w-12 text-gray-500',
+                  className: 'w-12 text-navy-500',
                   render: (row) => (
                     <span>
                       {rows.indexOf(row) + 1}
@@ -222,10 +222,10 @@ export function SearchHistoryPage() {
                   header: 'ผู้ค้นหา',
                   render: (row) => (
                     <div className="flex flex-col">
-                      <span className="font-medium text-gray-900">
+                      <span className="font-medium text-navy-900">
                         {row.searchedByFullName}
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-navy-500">
                         {row.searchedByUsername}
                       </span>
                     </div>
@@ -244,7 +244,7 @@ export function SearchHistoryPage() {
                   render: (row) => (
                     <Link
                       to="/verify"
-                      className="font-medium text-brand text-navy underline hover:text-navy/80"
+                      className="font-medium text-navy-700 underline hover:text-navy-900"
                     >
                       {row.declarationNo}
                     </Link>
@@ -275,7 +275,7 @@ export function SearchHistoryPage() {
               rows={pageRows}
               rowKey={(row) => row.id}
             />
-            <div className="border-t border-gray-200 px-3">
+            <div className="border-t border-navy-100 px-3">
               <Pagination
                 page={page}
                 pageSize={pageSize}

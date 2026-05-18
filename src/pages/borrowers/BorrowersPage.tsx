@@ -191,7 +191,7 @@ export function BorrowersPage() {
                   render: (row) => (
                     <Link
                       to={`/borrowers/${row.id}`}
-                      className="font-medium text-navy underline"
+                      className="font-medium text-navy-700 underline"
                     >
                       {row.id}
                     </Link>
@@ -245,7 +245,7 @@ export function BorrowersPage() {
                     <div className="flex items-center gap-2">
                       <Link
                         to={`/borrowers/${row.id}`}
-                        className="rounded-md border border-gray-300 bg-white px-2 py-1 text-sm font-medium text-navy hover:bg-gray-50"
+                        className="rounded-md border border-navy-200 bg-white px-2 py-1 text-sm font-medium text-navy-700 hover:bg-navy-50"
                       >
                         ดู
                       </Link>
@@ -276,7 +276,7 @@ export function BorrowersPage() {
               rows={pageRows}
               rowKey={(row) => row.id}
             />
-            <div className="border-t border-gray-200 px-3">
+            <div className="border-t border-navy-100 px-3">
               <Pagination
                 page={page}
                 pageSize={pageSize}

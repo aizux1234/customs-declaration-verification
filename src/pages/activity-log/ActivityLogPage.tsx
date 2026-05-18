@@ -1,5 +1,6 @@
 // src/pages/activity-log/ActivityLogPage.tsx
 import { useEffect, useMemo, useState } from 'react';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import { DataTable } from '../../components/DataTable';
@@ -246,7 +247,7 @@ export function ActivityLogPage() {
                 {
                   key: 'no',
                   header: '#',
-                  className: 'w-12 text-gray-500',
+                  className: 'w-12 text-navy-500',
                   render: (row) => rows.indexOf(row) + 1,
                 },
                 {
@@ -278,8 +279,21 @@ export function ActivityLogPage() {
                 {
                   key: 'expand',
                   header: '',
-                  className: 'w-8 text-center text-gray-400',
-                  render: (row) => (expanded.has(row.id) ? '▾' : '▸'),
+                  className: 'w-8 text-center text-navy-400',
+                  render: (row) =>
+                    expanded.has(row.id) ? (
+                      <ChevronDown
+                        aria-hidden="true"
+                        size={16}
+                        className="inline"
+                      />
+                    ) : (
+                      <ChevronRight
+                        aria-hidden="true"
+                        size={16}
+                        className="inline"
+                      />
+                    ),
                 },
               ]}
               rows={pageRows}
@@ -288,36 +302,36 @@ export function ActivityLogPage() {
             />
 
             {pageRows.some((r) => expanded.has(r.id)) && (
-              <div className="border-t border-gray-200 bg-gray-50 px-4 py-3">
+              <div className="border-t border-navy-100 bg-navy-50 px-4 py-3">
                 {pageRows
                   .filter((r) => expanded.has(r.id))
                   .map((r) => (
                     <div
                       key={r.id}
-                      className="border-b border-gray-200 py-2 last:border-b-0"
+                      className="border-b border-navy-100 py-2 last:border-b-0"
                     >
-                      <p className="text-xs font-semibold text-navy">
+                      <p className="text-xs font-semibold text-navy-800">
                         {formatDateTime(r.timestamp)} · {r.actionType}
                       </p>
                       {r.beforeValue === null && r.afterValue === null ? (
-                        <p className="mt-1 text-xs text-gray-500">
+                        <p className="mt-1 text-xs text-navy-500">
                           ไม่มีข้อมูลการเปลี่ยนแปลง
                         </p>
                       ) : (
                         <div className="mt-1 grid grid-cols-1 gap-2 md:grid-cols-2">
                           <div>
-                            <p className="text-xs font-medium text-gray-500">
+                            <p className="text-xs font-medium text-navy-500">
                               ค่าก่อนหน้า (Before)
                             </p>
-                            <pre className="mt-0.5 overflow-x-auto rounded bg-white p-2 text-xs text-gray-700">
+                            <pre className="mt-0.5 overflow-x-auto rounded bg-white p-2 text-xs text-navy-700">
                               {r.beforeValue ?? '-'}
                             </pre>
                           </div>
                           <div>
-                            <p className="text-xs font-medium text-gray-500">
+                            <p className="text-xs font-medium text-navy-500">
                               ค่าหลังเปลี่ยน (After)
                             </p>
-                            <pre className="mt-0.5 overflow-x-auto rounded bg-white p-2 text-xs text-gray-700">
+                            <pre className="mt-0.5 overflow-x-auto rounded bg-white p-2 text-xs text-navy-700">
                               {r.afterValue ?? '-'}
                             </pre>
                           </div>
@@ -328,7 +342,7 @@ export function ActivityLogPage() {
               </div>
             )}
 
-            <div className="border-t border-gray-200 px-3">
+            <div className="border-t border-navy-100 px-3">
               <Pagination
                 page={page}
                 pageSize={pageSize}

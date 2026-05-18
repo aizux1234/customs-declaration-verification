@@ -193,14 +193,14 @@ export function UsersPage() {
                 {
                   key: 'no',
                   header: '#',
-                  className: 'w-12 text-gray-500',
+                  className: 'w-12 text-navy-500',
                   render: (row) => rows.indexOf(row) + 1,
                 },
                 {
                   key: 'username',
                   header: 'Username',
                   render: (row) => (
-                    <span className="font-medium text-navy underline">
+                    <span className="font-medium text-navy-700 underline">
                       {row.username}
                     </span>
                   ),
@@ -275,7 +275,7 @@ export function UsersPage() {
               rowKey={(row) => row.id}
               onRowClick={handleEdit}
             />
-            <div className="border-t border-gray-200 px-3">
+            <div className="border-t border-navy-100 px-3">
               <Pagination
                 page={page}
                 pageSize={pageSize}
