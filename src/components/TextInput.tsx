@@ -22,9 +22,9 @@ export function TextInput({
   const id = useId();
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="text-sm font-medium text-gray-700">
+      <label htmlFor={id} className="text-sm font-medium text-navy-700">
         {label}
-        {required && <span className="ml-0.5 text-red-600">*</span>}
+        {required && <span className="ml-0.5 text-danger">*</span>}
       </label>
       <input
         id={id}
@@ -34,11 +34,11 @@ export function TextInput({
         placeholder={placeholder}
         readOnly={readOnly}
         required={required}
-        className={`rounded-md border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand ${
-          error ? 'border-red-500' : 'border-gray-300'
-        } ${readOnly ? 'bg-gray-50' : 'bg-white'}`}
+        className={`w-full rounded-md border px-3 py-2 text-sm text-navy-900 focus:border-navy-400 focus:outline-none focus:ring-2 focus:ring-navy-100 ${
+          error ? 'border-danger' : 'border-navy-200'
+        } ${readOnly ? 'bg-navy-50' : 'bg-white'}`}
       />
-      {error && <span className="text-xs text-red-600">{error}</span>}
+      {error && <span className="mt-1 text-sm text-danger-text">{error}</span>}
     </div>
   );
 }

@@ -7,9 +7,9 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variantClasses: Record<ButtonProps['variant'], string> = {
-  primary: 'bg-navy text-white hover:bg-navy/90 border border-transparent',
-  danger: 'bg-red-600 text-white hover:bg-red-700 border border-transparent',
-  secondary: 'bg-white text-navy border border-gray-300 hover:bg-gray-50',
+  primary: 'bg-navy-700 hover:bg-navy-800 text-white border border-transparent',
+  danger: 'bg-danger hover:bg-danger-text text-white border border-transparent',
+  secondary: 'bg-white border border-navy-200 text-navy-700 hover:bg-navy-50',
 };
 
 export function Button({
@@ -25,7 +25,7 @@ export function Button({
     <button
       type={type}
       disabled={disabled || loading}
-      className={`inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-400 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${className}`}
       {...rest}
     >
       {loading && <Spinner size={14} />}

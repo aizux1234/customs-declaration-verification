@@ -6,6 +6,7 @@ import { Badge } from './Badge';
 import { DataTable } from './DataTable';
 import { EmptyState } from './EmptyState';
 import { Pagination } from './Pagination';
+import { Skeleton } from './Skeleton';
 
 describe('shared components', () => {
   it('Button renders its label', () => {
@@ -36,5 +37,9 @@ describe('shared components', () => {
         onPageChange={() => {}} onPageSizeChange={() => {}} />,
     );
     expect(screen.getByText(/1-20 of 45/)).toBeInTheDocument();
+  });
+  it('Skeleton renders a placeholder element', () => {
+    const { container } = render(<Skeleton />);
+    expect(container.firstChild).toBeTruthy();
   });
 });
