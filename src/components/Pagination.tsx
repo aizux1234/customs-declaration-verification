@@ -30,7 +30,7 @@ export function Pagination({
           value={pageSize}
           onChange={(e) => onPageSizeChange(Number(e.target.value))}
           aria-label="page size"
-          className="rounded-md border border-navy-200 bg-white px-3 py-2 text-sm text-navy-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-400"
+          className="rounded-md border border-navy-200 bg-white px-3 py-1.5 text-sm text-navy-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-400"
         >
           {pageSizeOptions.map((opt) => (
             <option key={opt} value={opt}>

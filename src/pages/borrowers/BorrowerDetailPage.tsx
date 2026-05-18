@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
-import { Spinner } from '../../components/Spinner';
+import { Skeleton } from '../../components/Skeleton';
 import { Toast } from '../../components/Toast';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { useAuth } from '../../context/AuthContext';
@@ -101,8 +101,11 @@ export function BorrowerDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center py-16">
-        <Spinner size={28} />
+      <div className="rounded-lg bg-white shadow-card p-6 space-y-3">
+        <Skeleton className="h-6 w-1/3" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-2/3" />
       </div>
     );
   }
