@@ -12,6 +12,7 @@ import { store } from '../../data/store';
 import { getBorrower, deactivateBorrower } from '../../api/borrowerApi';
 import { formatDate, formatDateTime, formatCurrency } from '../../utils/formatters';
 import { BorrowerFormModal } from './BorrowerFormModal';
+import { DeclarationLinkTab } from './DeclarationLinkTab';
 import type { User, Borrower, BorrowerType } from '../../types';
 
 const borrowerTypeLabel: Record<BorrowerType, string> = {
@@ -231,9 +232,7 @@ export function BorrowerDetailPage() {
           </div>
         </section>
       ) : (
-        <section className="rounded-lg border border-gray-200 bg-white p-5">
-          <div className="text-sm text-gray-500">ใบขนที่เชื่อมโยง</div>
-        </section>
+        <DeclarationLinkTab borrowerId={borrower.id} />
       )}
 
       {actor && (
