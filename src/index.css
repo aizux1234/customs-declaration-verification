@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-body { font-family: 'Sarabun', 'Segoe UI', sans-serif; }
+@layer base {
+  body { @apply bg-navy-50 text-navy-900 antialiased; }
+}
 
 @media print {
   body * { visibility: hidden; }
