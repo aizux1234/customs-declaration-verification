@@ -32,14 +32,17 @@ export function SearchForm({ loading, onSearch }: SearchFormProps) {
 
   return (
     <form
-      className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
+      className="rounded-lg bg-white p-6 shadow-card"
       onSubmit={(e) => {
         e.preventDefault();
         handleSearch();
       }}
     >
-      <h2 className="text-base font-semibold text-navy">ค้นหาใบขนสินค้า</h2>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <h2 className="text-base font-semibold text-navy-800">ค้นหาใบขนสินค้า</h2>
+      <p className="mt-1 text-sm text-navy-500">
+        กรอก Reference Number และเลขที่ใบขนเพื่อเริ่มการตรวจสอบ
+      </p>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <TextInput
           label="Reference Number"
           value={referenceNumber}
@@ -56,7 +59,7 @@ export function SearchForm({ loading, onSearch }: SearchFormProps) {
           placeholder="เช่น A012-650518000001"
         />
       </div>
-      <div className="flex gap-3">
+      <div className="mt-5 flex gap-3 border-t border-navy-100 pt-4">
         <Button
           type="submit"
           variant="primary"

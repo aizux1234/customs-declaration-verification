@@ -24,9 +24,9 @@ const statusMeta: Record<
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-0.5">
-      <span className="text-xs text-gray-500">{label}</span>
-      <span className="text-sm font-medium text-gray-900">{children}</span>
+    <div className="flex flex-col gap-1">
+      <span className="text-xs text-navy-500">{label}</span>
+      <span className="text-sm text-navy-800">{children}</span>
     </div>
   );
 }
@@ -39,47 +39,55 @@ export function SummaryCard({
   const status = statusMeta[declaration.status];
 
   return (
-    <div className="flex flex-col gap-5 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs text-gray-500">เลขที่ใบขน</span>
-          <span className="text-lg font-semibold text-navy">
+    <div className="overflow-hidden rounded-lg bg-white shadow-card">
+      <div className="flex items-center justify-between gap-4 border-b border-navy-100 bg-navy-50 px-6 py-4">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-xs text-navy-500">เลขที่ใบขน</span>
+          <span className="font-mono text-lg font-semibold text-navy-800">
             {declaration.declarationNo}
           </span>
         </div>
         <Badge text={status.label} tone={status.tone} />
       </div>
 
-      {declaration.status === 'HOLD' && (
-        <Alert tone="warning" variant="banner">
-          ใบขนนี้ถูกระงับ (HOLD) โดยกรมศุลกากร กรุณาตรวจสอบรายละเอียดก่อนพิจารณาสินเชื่อ
-        </Alert>
-      )}
+      <div className="flex flex-col gap-5 p-6">
+        {declaration.status === 'HOLD' && (
+          <Alert tone="warning" variant="banner">
+            ใบขนนี้ถูกระงับ (HOLD) โดยกรมศุลกากร กรุณาตรวจสอบรายละเอียดก่อนพิจารณาสินเชื่อ
+          </Alert>
+        )}
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Field label="วันที่ใบขน">{formatDate(declaration.declarationDate)}</Field>
-        <Field label="วันที่ส่งออก">{formatDate(declaration.exportDate)}</Field>
-        <Field label="Reference Number">{referenceNumber}</Field>
-        <Field label="มูลค่า FOB">
-          {formatCurrency(declaration.fobValue)} {declaration.currency}
-        </Field>
-        <Field label="มูลค่า CIF">
-          {formatCurrency(declaration.cifValue)} {declaration.currency}
-        </Field>
-        <Field label="ผู้ส่งออก">{declaration.exporterName}</Field>
-        <Field label="ประเทศปลายทาง">{declaration.destinationCountry}</Field>
-      </div>
+        <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Field label="วันที่ใบขน">{formatDate(declaration.declarationDate)}</Field>
+          <Field label="วันที่ส่งออก">{formatDate(declaration.exportDate)}</Field>
+          <Field label="Reference Number">{referenceNumber}</Field>
+          <Field label="มูลค่า FOB">
+            <span className="font-medium text-navy-900">
+              {formatCurrency(declaration.fobValue)}
+            </span>{' '}
+            <span className="text-navy-500">{declaration.currency}</span>
+          </Field>
+          <Field label="มูลค่า CIF">
+            <span className="font-medium text-navy-900">
+              {formatCurrency(declaration.cifValue)}
+            </span>{' '}
+            <span className="text-navy-500">{declaration.currency}</span>
+          </Field>
+          <Field label="ผู้ส่งออก">{declaration.exporterName}</Field>
+          <Field label="ประเทศปลายทาง">{declaration.destinationCountry}</Field>
+        </dl>
 
-      <div className="flex gap-3 border-t border-gray-100 pt-4">
-        <Button variant="primary" onClick={onPreview}>
-          Preview เอกสาร
-        </Button>
-        <Link
-          to="/reports/search-history"
-          className="inline-flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-navy transition-colors hover:bg-gray-50"
-        >
-          ดูประวัติค้นหา
-        </Link>
+        <div className="flex gap-3 border-t border-navy-100 pt-4">
+          <Button variant="primary" onClick={onPreview}>
+            Preview เอกสาร
+          </Button>
+          <Link
+            to="/reports/search-history"
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-navy-300 bg-white px-4 py-2 text-sm font-medium text-navy-700 transition-colors hover:bg-navy-50"
+          >
+            ดูประวัติค้นหา
+          </Link>
+        </div>
       </div>
     </div>
   );

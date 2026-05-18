@@ -8,7 +8,7 @@ import { DateRangePicker } from '../../components/DateRangePicker';
 import { Dropdown } from '../../components/Dropdown';
 import { EmptyState } from '../../components/EmptyState';
 import { Pagination } from '../../components/Pagination';
-import { Spinner } from '../../components/Spinner';
+import { Skeleton } from '../../components/Skeleton';
 import { TextInput } from '../../components/TextInput';
 import { listActivityLog, type ActivityLogFilter } from '../../api/activityLogApi';
 import { formatDateTime } from '../../utils/formatters';
@@ -232,8 +232,10 @@ export function ActivityLogPage() {
 
       <section className="rounded-lg bg-white shadow-card">
         {loading ? (
-          <div className="flex justify-center py-12">
-            <Spinner size={28} />
+          <div className="space-y-2 p-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <Skeleton key={i} className="h-10 w-full" />
+            ))}
           </div>
         ) : total === 0 ? (
           <EmptyState message="ไม่พบบันทึกกิจกรรมตามเงื่อนไขที่เลือก" />

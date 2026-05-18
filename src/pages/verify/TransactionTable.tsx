@@ -21,73 +21,77 @@ export function TransactionTable({ declaration }: TransactionTableProps) {
   const borrowerName = resolveBorrowerName(declaration.declarationNo);
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-      <h2 className="text-base font-semibold text-navy">รายการสินค้า</h2>
+    <div className="overflow-hidden rounded-lg bg-white shadow-card">
+      <div className="border-b border-navy-100 px-6 py-4">
+        <h2 className="text-base font-semibold text-navy-800">รายการสินค้า</h2>
+      </div>
 
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-sm">
           <thead>
-            <tr className="border-b border-gray-200 text-left text-xs uppercase tracking-wide text-gray-500">
-              <th className="px-3 py-2 font-medium">ชื่อสินค้า</th>
-              <th className="px-3 py-2 font-medium">HS Code</th>
-              <th className="px-3 py-2 font-medium">จำนวน</th>
-              <th className="px-3 py-2 font-medium text-right">น้ำหนัก</th>
-              <th className="px-3 py-2 font-medium text-right">ราคาต่อหน่วย</th>
-              <th className="px-3 py-2 font-medium text-right">มูลค่ารวม</th>
-              <th className="px-3 py-2 font-medium">ประเทศกำเนิดสินค้า</th>
+            <tr className="bg-navy-50 text-left text-xs font-semibold uppercase text-navy-600">
+              <th className="px-4 py-3">ชื่อสินค้า</th>
+              <th className="px-4 py-3">HS Code</th>
+              <th className="px-4 py-3">จำนวน</th>
+              <th className="px-4 py-3 text-right">น้ำหนัก</th>
+              <th className="px-4 py-3 text-right">ราคาต่อหน่วย</th>
+              <th className="px-4 py-3 text-right">มูลค่ารวม</th>
+              <th className="px-4 py-3">ประเทศกำเนิดสินค้า</th>
             </tr>
           </thead>
           <tbody>
             {lineItems.map((item, idx) => (
               <tr
                 key={`${item.hsCode}-${idx}`}
-                className="border-b border-gray-100 text-gray-800"
+                className="border-t border-navy-100 text-navy-700"
               >
-                <td className="px-3 py-2 font-medium text-gray-900">
+                <td className="px-4 py-3 font-medium text-navy-900">
                   {item.productName}
                 </td>
-                <td className="px-3 py-2">{item.hsCode}</td>
-                <td className="px-3 py-2">
+                <td className="px-4 py-3 font-mono text-navy-600">
+                  {item.hsCode}
+                </td>
+                <td className="px-4 py-3">
                   {item.quantity.toLocaleString('en-US')} {item.unit}
                 </td>
-                <td className="px-3 py-2 text-right">
+                <td className="px-4 py-3 text-right">
                   {item.weight.toLocaleString('en-US')} kg
                 </td>
-                <td className="px-3 py-2 text-right">
+                <td className="px-4 py-3 text-right">
                   {formatCurrency(item.unitPrice)}
                 </td>
-                <td className="px-3 py-2 text-right">
+                <td className="px-4 py-3 text-right font-medium text-navy-900">
                   {formatCurrency(item.totalValue)}
                 </td>
-                <td className="px-3 py-2">{item.originCountry}</td>
+                <td className="px-4 py-3">{item.originCountry}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <p className="text-xs text-gray-500">
-        แสดง {lineItems.length} รายการ
-      </p>
-
-      <div className="grid gap-4 border-t border-gray-100 pt-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="flex flex-col gap-0.5">
-          <span className="text-xs text-gray-500">เลขที่ตู้คอนเทนเนอร์</span>
-          <span className="text-sm font-medium text-gray-900">
+      <div className="grid gap-4 border-t border-navy-100 px-6 py-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-navy-500">จำนวนรายการ</span>
+          <span className="text-sm text-navy-800">
+            แสดง {lineItems.length} รายการ
+          </span>
+        </div>
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-navy-500">เลขที่ตู้คอนเทนเนอร์</span>
+          <span className="text-sm text-navy-800">
             {declaration.containerNo ?? '-'}
           </span>
         </div>
-        <div className="flex flex-col gap-0.5">
-          <span className="text-xs text-gray-500">ชื่อเรือ/เที่ยวบิน</span>
-          <span className="text-sm font-medium text-gray-900">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-navy-500">ชื่อเรือ/เที่ยวบิน</span>
+          <span className="text-sm text-navy-800">
             {declaration.vesselName ?? '-'}
           </span>
         </div>
-        <div className="flex flex-col gap-0.5">
-          <span className="text-xs text-gray-500">ผู้กู้ที่เชื่อมโยง</span>
-          <span className="text-sm font-medium text-gray-900">
-            {borrowerName}
-          </span>
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-navy-500">ผู้กู้ที่เชื่อมโยง</span>
+          <span className="text-sm text-navy-800">{borrowerName}</span>
         </div>
       </div>
     </div>

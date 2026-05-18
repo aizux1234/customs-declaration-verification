@@ -10,7 +10,7 @@ import { TextInput } from '../../components/TextInput';
 import { Dropdown } from '../../components/Dropdown';
 import { Alert } from '../../components/Alert';
 import { EmptyState } from '../../components/EmptyState';
-import { Spinner } from '../../components/Spinner';
+import { Skeleton } from '../../components/Skeleton';
 import { Toast } from '../../components/Toast';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { useAuth } from '../../context/AuthContext';
@@ -174,8 +174,10 @@ export function BorrowersPage() {
 
       <section className="rounded-lg bg-white shadow-card">
         {loading ? (
-          <div className="flex justify-center py-12">
-            <Spinner size={28} />
+          <div className="space-y-2 p-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <Skeleton key={i} className="h-10 w-full" />
+            ))}
           </div>
         ) : total === 0 ? (
           <EmptyState message="ไม่พบข้อมูลผู้กู้" />

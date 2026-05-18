@@ -6,6 +6,7 @@ import { SummaryCard } from './SummaryCard';
 import { TransactionTable } from './TransactionTable';
 import { DocumentPreview } from './DocumentPreview';
 import { Alert } from '../../components/Alert';
+import { PageHeader } from '../../components/PageHeader';
 import { useAuth } from '../../context/AuthContext';
 import { store } from '../../data/store';
 import { searchDeclaration } from '../../api/customsApi';
@@ -57,16 +58,13 @@ export function VerifyPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <header>
-        <h1 className="text-xl font-semibold text-navy">
-          ตรวจสอบใบขนสินค้า
-        </h1>
-        <p className="mt-1 text-sm text-gray-600">
-          ค้นหาและตรวจสอบข้อมูลใบขนสินค้าจากระบบกรมศุลกากร
-        </p>
-      </header>
+    <div>
+      <PageHeader
+        title="ตรวจสอบข้อมูลใบขน"
+        description="ค้นหาและตรวจสอบข้อมูลใบขนสินค้าจากระบบกรมศุลกากร"
+      />
 
+      <div className="flex flex-col gap-6">
       <SearchForm loading={loading} onSearch={runSearch} />
 
       {error === 'NOT_FOUND' && (
@@ -114,6 +112,7 @@ export function VerifyPage() {
           )}
         </>
       )}
+      </div>
     </div>
   );
 }
