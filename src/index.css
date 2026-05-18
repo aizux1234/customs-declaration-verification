@@ -3,3 +3,9 @@
 @tailwind utilities;
 
 body { font-family: 'Sarabun', 'Segoe UI', sans-serif; }
+
+@media print {
+  body * { visibility: hidden; }
+  .document-preview, .document-preview * { visibility: visible; }
+  .document-preview { position: absolute; left: 0; top: 0; width: 100%; }
+}
