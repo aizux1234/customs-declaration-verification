@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>คู่มือการใช้งาน — Verify Export Risk Intelligent</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Sarabun', 'Leelawadee UI', 'Tahoma', sans-serif;
+    color: #172d49; font-size: 12.5px; line-height: 1.65;
+  }
+  .cover {
+    background: linear-gradient(135deg, #1e3a5f, #101f33);
+    color: #fff; padding: 26px 28px; border-radius: 10px; margin-bottom: 22px;
+  }
+  .cover .badge {
+    display: inline-block; background: rgba(255,255,255,.14);
+    padding: 3px 10px; border-radius: 5px; font-size: 11px; margin-bottom: 10px;
+  }
+  .cover h1 { font-size: 21px; font-weight: 700; }
+  .cover .sub { font-size: 13px; color: #b8cce0; margin-top: 3px; }
+  .cover .meta { font-size: 11px; color: #8da9c8; margin-top: 12px; }
+
+  h2 {
+    font-size: 14.5px; color: #1e3a5f; font-weight: 700;
+    border-left: 4px solid #2563eb; padding-left: 9px;
+    margin: 20px 0 9px;
+  }
+  p { margin-bottom: 6px; }
+  ul, ol { margin: 4px 0 8px 22px; }
+  li { margin-bottom: 3px; }
+  code {
+    background: #f0f4f9; border: 1px solid #dae4f0; border-radius: 4px;
+    padding: 1px 6px; font-family: 'Consolas', monospace; font-size: 11.5px;
+    color: #1d4ed8;
+  }
+  .step {
+    background: #f0f4f9; border-radius: 8px; padding: 12px 16px; margin-bottom: 10px;
+  }
+  .step b { color: #1e3a5f; }
+
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; }
+  th {
+    background: #1e3a5f; color: #fff; font-size: 11px; font-weight: 600;
+    text-align: left; padding: 7px 9px;
+  }
+  td { padding: 6px 9px; border-bottom: 1px solid #dae4f0; font-size: 11.5px; }
+  tr:nth-child(even) td { background: #f7f9fc; }
+  .user { font-family: 'Consolas', monospace; color: #1d4ed8; font-weight: 600; }
+
+  .note {
+    background: #fef3c7; border-left: 4px solid #d97706;
+    padding: 10px 14px; border-radius: 6px; font-size: 11.5px; margin-top: 8px;
+  }
+  .pw-box {
+    background: #dbeafe; border: 1px solid #93c5fd; border-radius: 8px;
+    padding: 10px 16px; margin: 8px 0; font-size: 13px;
+  }
+  .pw-box .pw { font-family: 'Consolas', monospace; font-weight: 700; font-size: 15px; color: #1d4ed8; }
+  footer {
+    margin-top: 22px; padding-top: 10px; border-top: 1px solid #dae4f0;
+    font-size: 10px; color: #8da9c8; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <span class="badge">เอกสารคู่มือ — สำหรับการทดสอบระบบ (Prototype)</span>
+  <h1>ระบบตรวจสอบข้อมูลใบขนสำหรับการปล่อยสินเชื่อ</h1>
+  <div class="sub">Verify Export Risk Intelligent — คู่มือรหัสผู้ใช้งานและวิธีการใช้งาน</div>
+  <div class="meta">เวอร์ชัน 1.0 (Prototype) &nbsp;|&nbsp; ปรับปรุง 18 พฤษภาคม 2569</div>
+</div>
+
+<h2>1. การเปิดใช้งานระบบ</h2>
+<div class="step">
+  <p><b>ขั้นที่ 1</b> — เปิดโปรแกรมเทอร์มินัลที่โฟลเดอร์โปรเจค แล้วรันคำสั่ง: &nbsp;<code>npm run dev</code></p>
+  <p><b>ขั้นที่ 2</b> — รอจนระบบแสดงข้อความ <code>ready</code> พร้อมที่อยู่เว็บไซต์</p>
+  <p><b>ขั้นที่ 3</b> — เปิดเบราว์เซอร์ (แนะนำ Chrome หรือ Edge) แล้วเข้าที่: &nbsp;<code>http://localhost:5173</code></p>
+  <p><b>ขั้นที่ 4</b> — เข้าสู่ระบบด้วยรหัสผู้ใช้งานในตารางหัวข้อถัดไป</p>
+</div>
+
+<h2>2. รหัสผู้ใช้งานสำหรับทดสอบ</h2>
+<div class="pw-box">
+  รหัสผ่านของทุกบัญชีเหมือนกันทั้งหมด คือ &nbsp; <span class="pw">Passw0rd!</span>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:22%">Username</th>
+      <th style="width:30%">บทบาท (Role)</th>
+      <th style="width:48%">สิทธิ์การใช้งาน</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="user">superadmin</td><td>ผู้ดูแลระบบสูงสุด</td><td>เข้าถึงได้ทุกเมนู — แนะนำใช้บัญชีนี้สำหรับทดสอบ</td></tr>
+    <tr><td class="user">admin01</td><td>ผู้ดูแลระบบ</td><td>จัดการผู้ใช้งานและบทบาท</td></tr>
+    <tr><td class="user">officer01</td><td>เจ้าหน้าที่สินเชื่อ</td><td>ตรวจสอบใบขน, รายงานประวัติการค้นหา</td></tr>
+    <tr><td class="user">officer02</td><td>เจ้าหน้าที่สินเชื่อ</td><td>ตรวจสอบใบขน, รายงานประวัติการค้นหา</td></tr>
+    <tr><td class="user">bde01</td><td>เจ้าหน้าที่บันทึกข้อมูลผู้กู้</td><td>จัดการข้อมูลผู้กู้</td></tr>
+    <tr><td class="user">cde01</td><td>เจ้าหน้าที่บันทึกข้อมูลใบขน</td><td>จัดการข้อมูลผู้กู้และการเชื่อมโยงใบขน</td></tr>
+    <tr><td class="user">auditor01</td><td>ผู้ตรวจสอบ</td><td>ดูข้อมูลทุกส่วน (อ่านอย่างเดียว) + Activity Log</td></tr>
+  </tbody>
+</table>
+<div class="note">
+  <b>หมายเหตุ:</b> ระบบไม่มีหน้าสมัครสมาชิก — บัญชีผู้ใช้งานทั้งหมดสร้างโดยผู้ดูแลระบบ
+  หากกรอกรหัสผ่านผิดติดต่อกัน 5 ครั้ง บัญชีจะถูกล็อกอัตโนมัติ
+</div>
+
+<h2>3. การสลับบทบาท (Role Switcher)</h2>
+<p>หลังเข้าสู่ระบบแล้ว ที่ <b>แถบด้านบนขวา</b> จะมีช่องเลือก (Dropdown) สำหรับสลับบทบาท
+โดยไม่ต้องออกจากระบบ — เมื่อเลือกบทบาทใหม่ เมนูด้านซ้ายจะเปลี่ยนตามสิทธิ์ของบทบาทนั้นทันที
+(ฟังก์ชันนี้จัดทำไว้เพื่อความสะดวกในการสาธิตระบบ)</p>
+
+<h2>4. วิธีใช้งานเมนูหลัก</h2>
+<div class="step">
+  <p><b>ตรวจสอบใบขน</b> — กรอก Reference Number และเลขที่ใบขน แล้วกด “ค้นหา” ระบบจะแสดงข้อมูลใบขน
+  รายการสินค้า และปุ่ม “Preview เอกสาร” เพื่อดูเอกสารใบขนแบบเต็ม
+  &nbsp;(ทดลองกรอกเลข <code>TIMEOUT000000</code> เพื่อดูการแจ้งเตือนเมื่อระบบศุลกากรไม่ตอบสนอง)</p>
+</div>
+<div class="step">
+  <p><b>รายงานประวัติการค้นหา</b> — ดูประวัติการค้นหาใบขนทั้งหมด กรองตามช่วงวันที่/ผู้ค้นหา/เลขที่ใบขน
+  และกดปุ่ม “Export Excel” เพื่อดาวน์โหลดเป็นไฟล์ .xlsx</p>
+</div>
+<div class="step">
+  <p><b>จัดการผู้ใช้งาน</b> — เพิ่ม / แก้ไข / ปิดใช้งานบัญชีผู้ใช้ และกำหนดบทบาท (เฉพาะผู้ดูแลระบบ)</p>
+</div>
+<div class="step">
+  <p><b>จัดการข้อมูลผู้กู้</b> — เพิ่ม / แก้ไขข้อมูลผู้กู้ ดูรายละเอียด และเชื่อมโยงใบขนเข้ากับผู้กู้แต่ละราย</p>
+</div>
+<div class="step">
+  <p><b>Activity Log</b> — บันทึกทุกการกระทำในระบบ ดูได้อย่างเดียว แก้ไข/ลบไม่ได้
+  (เฉพาะผู้ดูแลระบบสูงสุดและผู้ตรวจสอบ)</p>
+</div>
+
+<h2>5. ข้อควรทราบ</h2>
+<ul>
+  <li>ระบบนี้เป็น <b>ต้นแบบ (Prototype)</b> — ข้อมูลทั้งหมดเป็นข้อมูลจำลอง ยังไม่ได้เชื่อมต่อ API กรมศุลกากรจริง</li>
+  <li>ข้อมูลเก็บอยู่ในหน่วยความจำชั่วคราว — เมื่อรีเฟรชหน้าเว็บ ข้อมูลจะกลับเป็นค่าเริ่มต้น</li>
+  <li>รองรับเบราว์เซอร์ Chrome, Edge, Firefox และ Safari รุ่นล่าสุด</li>
+  <li>ปิดเซิร์ฟเวอร์เมื่อเลิกใช้งานด้วยการกด <code>Ctrl + C</code> ในเทอร์มินัล</li>
+</ul>
+
+<footer>
+  Verify Export Risk Intelligent — เอกสารภายในสำหรับการทดสอบระบบ (Prototype) | Confidential
+</footer>
+
+</body>
+</html>
