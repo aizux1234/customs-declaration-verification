@@ -17,6 +17,7 @@ const ROUTE_ORDER: { module: ModuleKey; path: string }[] = [
   { module: 'verify', path: '/verify' },
   { module: 'users', path: '/users' },
   { module: 'borrowers', path: '/borrowers' },
+  { module: 'declarations', path: '/declarations' },
   { module: 'history', path: '/reports/search-history' },
   { module: 'activityLog', path: '/activity-log' },
 ];

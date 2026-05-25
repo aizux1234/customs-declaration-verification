@@ -7,6 +7,7 @@ import {
   Building2,
   ScrollText,
   ShieldCheck,
+  FileText,
   LogOut,
   type LucideIcon,
 } from 'lucide-react';
@@ -17,13 +18,13 @@ import { Badge } from '../components/Badge';
 import { Button } from '../components/Button';
 import type { Role } from '../types';
 
-const NAV: Record<ModuleKey, { label: string; path: string; icon: LucideIcon } | null> = {
+const NAV: Record<ModuleKey, { label: string; path: string; icon: LucideIcon }> = {
   verify: { label: 'ตรวจสอบใบขน', path: '/verify', icon: Search },
   history: { label: 'รายงานประวัติการค้นหา', path: '/reports/search-history', icon: FileBarChart },
   users: { label: 'จัดการผู้ใช้งาน', path: '/users', icon: Users },
   borrowers: { label: 'จัดการข้อมูลผู้กู้', path: '/borrowers', icon: Building2 },
+  declarations: { label: 'จัดการข้อมูลใบขน', path: '/declarations', icon: FileText },
   activityLog: { label: 'Activity Log', path: '/activity-log', icon: ScrollText },
-  declarations: null,
 };
 
 const ROLES: { value: Role; label: string }[] = [
@@ -41,11 +42,7 @@ export function AppLayout() {
 
   if (!user) return <Navigate to="/login" replace />;
 
-  const navItems = accessibleModules(user.role)
-    .map((m) => NAV[m])
-    .filter(
-      (item): item is { label: string; path: string; icon: LucideIcon } => item !== null,
-    );
+  const navItems = accessibleModules(user.role).map((m) => NAV[m]);
 
   function handleRoleChange(nextRole: Role) {
     const seedUser = store.users.find((u) => u.role === nextRole);

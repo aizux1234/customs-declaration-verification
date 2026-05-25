@@ -11,6 +11,7 @@ import { SearchHistoryPage } from '../pages/reports/SearchHistoryPage';
 import { UsersPage } from '../pages/users/UsersPage';
 import { BorrowersPage } from '../pages/borrowers/BorrowersPage';
 import { BorrowerDetailPage } from '../pages/borrowers/BorrowerDetailPage';
+import { DeclarationsPage } from '../pages/declarations/DeclarationsPage';
 import { ActivityLogPage } from '../pages/activity-log/ActivityLogPage';
 
 export function AppRoutes() {
@@ -33,6 +34,9 @@ export function AppRoutes() {
         <Route element={<ProtectedRoute module="borrowers" />}>
           <Route path="/borrowers" element={<BorrowersPage />} />
           <Route path="/borrowers/:id" element={<BorrowerDetailPage />} />
+        </Route>
+        <Route element={<ProtectedRoute module="declarations" />}>
+          <Route path="/declarations" element={<DeclarationsPage />} />
         </Route>
         <Route element={<ProtectedRoute module="activityLog" />}>
           <Route path="/activity-log" element={<ActivityLogPage />} />
